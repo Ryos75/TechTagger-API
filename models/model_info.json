@@ -1,0 +1,20 @@
+{
+  "model_version": "1.0.0",
+  "trained_at": "2026-07-11T11:50:59.707055",
+  "n_samples": 388,
+  "n_categories": 8,
+  "categories": [
+    "Backend",
+    "Cloud",
+    "Data Engineering",
+    "Data Science",
+    "Databases",
+    "DevOps",
+    "Frontend",
+    "Mobile"
+  ],
+  "accuracy_test": 0.7564,
+  "f1_weighted_test": 0.7614,
+  "embedding_model": "all-MiniLM-L6-v2",
+  "embedding_dim": 384
+}
