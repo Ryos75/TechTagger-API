@@ -157,15 +157,7 @@ JSON
   ]
 }
 
-🧠 Modelo de Aprendizado de Máquina
-Algoritmo: TF-IDF + Regressão Logística
-Incorporações: transformadores de sentenças (todos MiniLM-L6-v2)
-Palavras-chave: YAKE
-Conjunto de dados: ~388 artigos técnicos coletados via API Dev.to
-Categorias: 10 (Backend, Frontend, Mobile, Ciência de Dados, Aprendizado de Máquina, DevOps, Nuvem, Banco de Dados, Segurança, Testes)
-Métricas
-Precisão (testado): ~0,75
-Pontuação F1 (ponderada): ~0,74
+
 
 ☁️ Integração OCI
 A solução está preparada para integração com Oracle Cloud Infrastructure (OCI) :
@@ -174,15 +166,23 @@ OCI Object Storage: armazenamento dos modelos ( classifier.pkl, embeddings.npy)
 OCI Compute: hospedagem da aplicação (via Docker)
 Para ativar o carregamento dos modelos via OCI, configure as variáveis ​​de ambiente no arquivo .env:
 
-ambiente
+## 🧠 Modelo de Machine Learning
 
-USE_OCI_STORAGE=True
-OCI_NAMESPACE=seu-namespace
-OCI_BUCKET_NAME=techtagger-models
+- **Algoritmo:** TF‑IDF (n‑grams 1–3) + Regressão Logística, otimizado por **GridSearchCV**
+- **Melhores hiperparâmetros:** `C=2.0`, `max_features=5000`, `ngram_range=(1,3)`
+- **Embeddings (recomendação):** sentence‑transformers `all-MiniLM-L6-v2`
+- **Keywords:** YAKE com fallback automático por TF‑IDF
+- **Dataset:** 1.520 artigos técnicos balanceados (Dev.to API), 8 categorias
+- **Protocolo de avaliação:** treino com tags como sinal auxiliar; **teste apenas com título + descrição** (sem vazamento)
 
-🐳 Docker (opcional)
-Bash
+### 📊 Métricas (teste honesto)
+| Métrica | Valor |
+|---|---|
+| **Accuracy** | **0.955** |
+| **F1 (weighted)** | 0.955 |
+| **F1 (macro)** | 0.955 |
+| **F1 (CV 5‑fold)** | 0.960 |
 
-docker build -t techtagger .
-docker run -p 8000:8000 techtagger
+### 🏷️ Categorias (F1 por classe)
+Mobile 0.99 · Cloud 0.99 · Data Science 0.97 · Frontend 0.96 · Backend 0.95 · Databases 0.94 · DevOps 0.93 · Data Engineering 0.91
 
